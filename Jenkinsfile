@@ -5,6 +5,10 @@ pipeline {
 
         stage('Run Selenium Tests with pytest') {
             steps {
+                    withEnv([
+            'PATH+PYTHON_HOME=C:/Users/SHAIK MINHAJ ALI/AppData/Local/Python/pythoncore-3.14-64',
+            'PATH+PYTHON_SCRIPTS=C:/Users/SHAIK MINHAJ ALI/AppData/Local/Python/pythoncore-3.14-64/Scripts'
+        ])         {
                     echo "Running Selenium Tests using pytest"
 
                     // Install Python dependencies
@@ -19,6 +23,7 @@ pipeline {
                     // ✅ Run tests using pytest
                     //bat 'pytest tests\\test_registrationapp.py --maxfail=1 --disable-warnings --tb=short'
                     bat 'pytest -v'
+                    }
             }
         }
 
@@ -30,15 +35,15 @@ pipeline {
         }
         stage('Docker Login') {
             steps {
-                  bat 'docker login -u bhavani765 -p bhanu@123'
+                  bat 'docker login -u juveriyaminhaj -p juveriyam'
                 }
             }
         stage('push Docker Image to Docker Hub') {
             steps {
                 echo "push Docker Image to Docker Hub"
-                bat "docker tag seleniumdemoapp:v1 bhavani765/sample:seleniumtestimage"               
+                bat "docker tag seleniumdemoapp:v1 juveriyaminhaj/sample:seleniumtestimage"               
                     
-                bat "docker push bhavani765/sample:seleniumtestimage"
+                bat "docker push juveriyaminhaj/sample:seleniumtestimage"
                 
             }
         }
@@ -60,3 +65,4 @@ pipeline {
     }
 
 }
+
